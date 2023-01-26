@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reminderappv2/auth/login.dart';
 import 'package:reminderappv2/mainscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:reminderappv2/splashscreen.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Mainscreen(),
+      home: login(),
       // initialRoute: 'splash',
       // routes: {
       //   'splash': (context) => splashscreen(),
