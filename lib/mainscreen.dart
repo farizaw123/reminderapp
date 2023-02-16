@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:reminderappv2/detail_screen.dart';
 import 'NavBar.dart';
@@ -17,6 +19,17 @@ class _MainScreenState extends State<Mainscreen> {
   void setState(VoidCallback fn) {
     super.setState(fn);
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  final fDatabaseNotes = FirebaseDatabase.instance.ref().child("notes");
+
+  late String keys;
 
   bool button1 = false;
   bool button2 = false;
@@ -44,6 +57,8 @@ class _MainScreenState extends State<Mainscreen> {
 
 
   var key = GlobalKey<ScaffoldState>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -163,14 +178,16 @@ class _MainScreenState extends State<Mainscreen> {
                 ),
                 Container(
                   height:MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                    itemCount: itemCount,
-                    itemBuilder: (BuildContext context, int index) {
+                  child: FirebaseAnimatedList(
+                    defaultChild: Center(child: CircularProgressIndicator(),),
+                    query: fDatabaseNotes,
+                    itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+                      Map notes = snapshot.value as Map;
+                      notes['key'] = snapshot.key;
+
                       return Dismissible(
                           onDismissed: (direction) => {
-                            setState(() {
-                              itemCount --;
-                            })
+                            fDatabaseNotes.child(notes['key']).remove()
                           },
                           key: UniqueKey(),
                           child: Column(
@@ -178,7 +195,7 @@ class _MainScreenState extends State<Mainscreen> {
                               ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => DetailScreen()));
+                                      MaterialPageRoute(builder: (context) => DetailScreen(keys: notes['key'],)));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: warna[index],
@@ -191,8 +208,16 @@ class _MainScreenState extends State<Mainscreen> {
                             ],
                           )
                       );
-                    },
-                  ),
+                      // if(isEmpyt == true){
+                      //
+                      // } else{
+                      //   return Center(
+                      //     child: Text("Data Kosong"),
+                      //   );
+                      // }
+                  },
+
+                  )
                 )
               ],
             ),
@@ -202,6 +227,10 @@ class _MainScreenState extends State<Mainscreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFfFF735C),
         onPressed: () {
+          fDatabaseNotes.push().set({
+            'nama' : "",
+            'judul' :""
+          });
           setState(() {
             itemCount ++;
           });
