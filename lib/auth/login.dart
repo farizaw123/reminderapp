@@ -86,7 +86,7 @@ class _loginState extends State<login> {
             ],
           ),
           SizedBox(height: 30,),
-          Text("SignUp With", textAlign: TextAlign.center, style: TextStyle(color: Colors.redAccent),),
+          Text("SignUp With (belum bisa)", textAlign: TextAlign.center, style: TextStyle(color: Colors.redAccent),),
           SizedBox(height: 40,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,23 +94,41 @@ class _loginState extends State<login> {
               Container(
                 width: 40,
                 height: 40,
-                color: Colors.grey,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey,
+                ),
+                child: (
+                Icon(Icons.construction)
+                ),
               ),
               Container(
                 width: 40,
                 height: 40,
-                color: Colors.grey,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey,
+                ),
+                child: (
+                    Icon(Icons.construction)
+                ),
               ),
               Container(
                 width: 40,
                 height: 40,
-                color: Colors.grey,
-              )
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey,
+                ),
+                child: (
+                    Icon(Icons.construction)
+                ),
+              ),
             ],
           ),
           SizedBox(height: 30,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 100),
+            padding: EdgeInsets.symmetric(horizontal: 90, vertical: 10),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.redAccent,

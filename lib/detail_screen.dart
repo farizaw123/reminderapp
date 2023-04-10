@@ -39,10 +39,14 @@ class _DetailScreen extends State<DetailScreen>{
     });
     var judul = await fDatabaseNotes.child(keys).child('judul').get();
     var isi = await fDatabaseNotes.child(keys).child('isi').get();
+    print(judul);
+    print(isi);
 
     setState(() {
       judulController.text = judul.value.toString();
-      isiController.text = isi.value.toString();
+      if(isi.value.toString()!='null'){
+        isiController.text = isi.value.toString();
+      }
     });
 
     setState(() {
